@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+		https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    如果使用了注解的方式注入，只需要导入一些配置，以及声明好需要注入的Bean就可以了。此时代码中就可以省略set方法，因为注解就是基于set方法实现的-->
+    <bean id="cat" class="com.zzzlew.pojo.Cat"/>
+    <bean id="dog123" class="com.zzzlew.pojo.Dog"/>
+    <bean id="person" class="com.zzzlew.pojo.Person"/>
+
+    <!--    使用注解的方式-->
+    <!--    第一步，需要引入配置-->
+    <context:annotation-config/>
+
+    <!--    手动注入的写法-->
+    <!--    <bean id="person" class="com.zzzlew.pojo.Person">-->
+    <!--        <property name="name" value="张三"/>-->
+    <!--        <property name="cat" ref="cat"/>-->
+    <!--        <property name="dog" ref="dog"/>-->
+    <!--    </bean>-->
+
+    <!--    自动注入的写法-->
+    <!--    byName： 会在Bean容器中的上下文中找，找到自己对象set方法后面对应的id值-->
+    <!--    byType：会在Bean容器总的上下文中找，找到和自己对象属性相同的bean-->
+    <!--    简单来说就是一个是基于 名称 来注入，一个是基于 类型 注入，从这里就可以引出 Resource 和 Autowired 注解注入有什么不同-->
+    <!--    其中，Resource 是先根据byName从容器内匹配id一致的bean，如果有则直接注入，如果没有，则根据byType去查找，如果都没有，就报错-->
+    <!--    Autowired 则是根据byType查找，找到 多个 → 再按 变量名 当成 byName 找，如果没有就直接报错，而且这个对象默认必须存在，否则就会出现空指针错误 -->
+    <!--    但是 Resource 缺失了一些自动提示的功能，没有 Autowired 高级-->
+    <!--    <bean id="person" class="com.zzzlew.pojo.Person" autowire="byName">-->
+    <!--        <property name="name" value="张三"/>-->
+    <!--    </bean>-->
+    <!--    <bean id="person" class="com.zzzlew.pojo.Person" autowire="byType">-->
+    <!--        <property name="name" value="张三"/>-->
+    <!--    </bean>-->
+
+</beans>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    底层代码的实现就是 set 注入-->
+    <!--    对象由Spring创建,属性也是由Spring容器进行设置-->
+    <bean id="student" class="com.zzzlew.Dao.StudentImpl">
+        <!--        <property name="username" value="张三"/>-->
+        <!--        <property name="job" value="班长"/>-->
+        <!--        第一种，下标赋值-->
+        <!--        <constructor-arg index="0" value="张三"/>-->
+        <!--        <constructor-arg index="1" value="班长"/>-->
+        <!--        第二种是通过类型创建赋值，不建议使用，因为如果两种类型相同会分不清-->
+        <!--        第三种，直接通过参数名设置-->
+        <constructor-arg name="username" value="张三"/>
+        <constructor-arg name="job" value="班长"/>
+    </bean>
+
+    <bean id="teacher" class="com.zzzlew.Dao.TeacherImpl">
+        <property name="username" value="王老师"/>
+        <property name="job" value="班主任"/>
+    </bean>
+
+    <bean id="userEmpty" class="com.zzzlew.Dao.UserEmptyImpl">
+
+    </bean>
+
+    <bean id="user" class="com.zzzlew.Service.UserServiceImpl">
+        <property name="userDao" ref="student"/>
+        <!--        <property name="userDao" ref="teacher"/>-->
+    </bean>
+
+    <!--    起一个别名，则可以通过别名进行调用 -->
+    <alias name="user" alias="user1"/>
+
+</beans>
